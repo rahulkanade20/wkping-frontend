@@ -1,0 +1,36 @@
+  .container {
+    align-items: center; /* Center vertically */
+  }
+  
+  .container nav {
+    background-color: #222;
+    padding: 1rem;
+    align-items: center;
+  }
+  
+  .container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .container img {
+    display: inline;
+    margin-right: 1rem;
+  }
+  
+  .container li {
+    display: inline;
+    margin-right: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .container a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .container a:hover {
+    text-decoration: underline;
+  }
+
+  
