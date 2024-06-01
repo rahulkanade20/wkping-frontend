@@ -13,11 +13,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Sync to GitLab
-        env:
-          GITLAB_URL: https://gitlab.com
-          GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-          GITLAB_REPO: monitoring-app1/wkping-frontend
         run: |
           git remote add gitlab https://rahulkanade20:glft-xBx-UZpaj7krx_puX2QH@https://gitlab.com/monitoring-app1/wkping-frontend.git/
           git config --global user.name "rahulkanade20"
