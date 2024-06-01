@@ -30,4 +30,3 @@ deploy:
   script:
     - echo "Deploying the application..."
     # Add your deployment script/commands here
-registry.gitlab.com/monitoring-app1/wkping-frontend:48bf0b54-
