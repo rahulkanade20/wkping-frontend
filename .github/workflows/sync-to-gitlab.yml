@@ -14,7 +14,7 @@ jobs:
 
       - name: Sync to GitLab
         run: |
-          git remote add gitlab https://oauth2:glft-xBx-UZpaj7krx_puX2QH@gitlab.com/monitoring-app1/wkping-frontend.git/
+          git remote add gitlab https://oauth2:glpat-w7oxTrUQHurjxpE1NYTU@gitlab.com/monitoring-app1/wkping-frontend.git/
           git config --global user.name "rahulkanade20"
           git config --global user.email "krahul.view@gmail.com"
           git push gitlab HEAD:master --force
