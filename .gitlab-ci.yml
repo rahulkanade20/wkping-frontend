@@ -4,7 +4,7 @@ stages:
   - deploy
 
 variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA:${date +%Y%m%d%H%M%S}
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA-${date +%Y%m%d%H%M%S}
 
 build:
   stage: build
