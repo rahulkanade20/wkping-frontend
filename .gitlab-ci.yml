@@ -3,9 +3,6 @@ stages:
   - docker-build
   - deploy
 
-variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA-${date +%Y%m%d%H%M%S}
-
 build:
   stage: build
   image: node:14
@@ -22,6 +19,8 @@ docker-build:
   services:
     - docker:dind
   script:
+    - TIMESTAMP=$(date +%Y%m%d%H%M%S)
+    - IMAGE_TAG="$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA-$TIMESTAMP"
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
@@ -31,3 +30,4 @@ deploy:
   script:
     - echo "Deploying the application..."
     # Add your deployment script/commands here
+registry.gitlab.com/monitoring-app1/wkping-frontend:48bf0b54-
