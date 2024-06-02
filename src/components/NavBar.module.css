@@ -3,7 +3,7 @@
   }
   
   .container nav {
-    background-color: #18d618;
+    background-color: hwb(300 2% 98%);
     padding: 1rem;
     align-items: center;
   }

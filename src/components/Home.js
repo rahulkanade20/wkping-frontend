@@ -2,7 +2,7 @@ import styles from './Home.module.css'
 
 const Home = () => {
     return <div className={styles.center}>
-        <h1>Welcome to Wolters Kluwer Health Monitor</h1>
+        <h1>Welcome to WebHealth Monitor</h1>
         <h2>Instructions</h2>
         <ul>
             <li>Register Team</li>
