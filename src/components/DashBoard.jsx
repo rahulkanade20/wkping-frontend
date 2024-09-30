@@ -6,7 +6,7 @@ const DashBoard = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://172.31.10.52:8080/fetchData');
+            const response = await fetch('http://3.110.188.7:8080/fetchData');
             const jsonData = await response.json();
             setData(jsonData);
         } catch (error) {

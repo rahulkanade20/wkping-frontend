@@ -19,7 +19,7 @@ const RegisterLink = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://172.31.10.52:8080/links/register', {
+            const response = await fetch('http://3.110.188.7:8080/links/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
