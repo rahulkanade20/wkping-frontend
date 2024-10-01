@@ -6,7 +6,8 @@ const DashBoard = () => {
 
     const fetchData = async () => {
 
-        const ip_address = process.env.IP_ADDRESS;
+        const ip_address = process.env.REACT_APP_IP_ADDRESS;
+        console.log(ip_address);
 
         try {
             const response = await fetch(`http://${ip_address}:8080/fetchData`);

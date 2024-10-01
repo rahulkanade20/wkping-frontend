@@ -18,7 +18,8 @@ const RegisterLink = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const ip_address = process.env.IP_ADDRESS;
+        const ip_address = process.env.REACT_APP_IP_ADDRESS;
+        console.log(ip_address);
         try {
             const response = await fetch(`http://${ip_address}:8080/links/register`, {
                 method: 'POST',
