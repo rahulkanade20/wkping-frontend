@@ -18,8 +18,9 @@ const RegisterLink = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const ip_address = process.env.IP_ADDRESS;
         try {
-            const response = await fetch('http://3.110.188.7:8080/links/register', {
+            const response = await fetch(`http://${ip_address}:8080/links/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
