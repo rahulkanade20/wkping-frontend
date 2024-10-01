@@ -9,7 +9,7 @@ const DashBoard = () => {
         const ip_address = process.env.IP_ADDRESS;
 
         try {
-            const response = await fetch('http://${ip_address}:8080/fetchData');
+            const response = await fetch(`http://${ip_address}:8080/fetchData`);
             const jsonData = await response.json();
             setData(jsonData);
         } catch (error) {

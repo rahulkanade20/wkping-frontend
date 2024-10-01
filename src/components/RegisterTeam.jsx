@@ -20,7 +20,7 @@ const RegisterTeam = () => {
         e.preventDefault();
         const ip_address = process.env.IP_ADDRESS;
         try {
-            const response = await fetch('http://${ip_address}:8080/teams', {
+            const response = await fetch(`http://${ip_address}:8080/teams`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
