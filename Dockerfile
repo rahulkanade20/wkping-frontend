@@ -1,6 +1,10 @@
 # Official Node.js image being used as a base image
 FROM node:14
 
+#build-time argument
+ARG REACT_APP_IP_ADDRESS
+ENV REACT_APP_IP_ADDRESS=${REACT_APP_IP_ADDRESS}
+
 #Setting up the working directory
 WORKDIR /app
 
