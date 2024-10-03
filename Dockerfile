@@ -10,14 +10,12 @@ COPY package.json ./
 # Copying package-lcok.json
 COPY package-lock.json ./
 
-# install all dependencies
+# install all dependencies including dotenv-cli
 RUN npm install
+RUN npm install dotenv-cli
 
 # Copy rest of application code
-COPY . .
-
-# Install dotrnv-cli to load .env during the build
-RUN npm install dotenv-cli 
+COPY . . 
 
 # Build react app with env variables from .env
 RUN dotenv -e .env npm run build
