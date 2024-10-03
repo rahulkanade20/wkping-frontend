@@ -12,13 +12,12 @@ COPY package-lock.json ./
 
 # install all dependencies including dotenv-cli
 RUN npm install
-RUN npm install dotenv-cli
 
 # Copy rest of application code
 COPY . . 
 
 # Build react app with env variables from .env
-RUN dotenv -e .env npm run build
+RUN npm run build
 
 # Install a simple server to serve the built files
 RUN npm install -g serve
