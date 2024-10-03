@@ -1,10 +1,6 @@
 # Official Node.js image being used as a base image
 FROM node:14
 
-#build-time argument
-ARG REACT_APP_IP_ADDRESS
-ENV REACT_APP_IP_ADDRESS=${REACT_APP_IP_ADDRESS}
-
 #Setting up the working directory
 WORKDIR /app
 
@@ -20,8 +16,11 @@ RUN npm install
 # Copy rest of application code
 COPY . .
 
-# Build react app
-RUN npm run build
+# Install dotrnv-cli to load .env during the build
+RUN npm install dotenv-cli 
+
+# Build react app with env variables from .env
+RUN dotenv -e .env npm run build
 
 # Install a simple server to serve the built files
 RUN npm install -g serve
