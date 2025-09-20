@@ -227,6 +227,10 @@
   color: #2563eb;
 }
 
+.statCard.pending .statValue {
+  color: #f59e0b;
+}
+
 .tableWrapper {
   background: white;
   border-radius: 1rem;
@@ -373,9 +377,9 @@
   color: #991b1b;
 }
 
-.statusBadge.unknown {
-  background-color: #f3f4f6;
-  color: #374151;
+.statusBadge.pending {
+  background-color: #fef3c7;
+  color: #92400e;
 }
 
 .statusBadge::before {
@@ -404,9 +408,9 @@
   color: #991b1b;
 }
 
-.statusCode.unknown {
-  background-color: #f3f4f6;
-  color: #374151;
+.statusCode.pending {
+  background-color: #fef3c7;
+  color: #92400e;
 }
 
 .urlLink {

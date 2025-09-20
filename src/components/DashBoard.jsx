@@ -40,23 +40,24 @@ const DashBoard = () => {
         }
     };
 
-    const getStatusBadgeClass = (status) => {
-        if (!status) return 'unknown';
-        const statusLower = status.toLowerCase();
-        if (statusLower.includes('online') || statusLower.includes('up') || statusLower === 'ok') {
-            return 'online';
-        } else if (statusLower.includes('offline') || statusLower.includes('down') || statusLower === 'error') {
-            return 'offline';
+    const getStatusBadgeClass = (status, statusCode) => {
+        // Use status code for determination
+        if (statusCode) {
+            const codeNum = parseInt(statusCode);
+            // 2xx and 3xx are considered healthy (success and redirects)
+            if (codeNum >= 200 && codeNum < 400) return 'online';
+            // 4xx and 5xx are unhealthy (client and server errors)
+            if (codeNum >= 400) return 'offline';
         }
-        return 'unknown';
+        return 'pending';
     };
 
     const getStatusCodeClass = (code) => {
-        if (!code) return 'unknown';
+        if (!code) return 'pending';
         const codeNum = parseInt(code);
         if (codeNum >= 200 && codeNum < 300) return 'success';
         if (codeNum >= 400) return 'error';
-        return 'unknown';
+        return 'pending';
     };
 
     const formatTimestamp = (timestamp) => {
@@ -71,13 +72,18 @@ const DashBoard = () => {
 
     const getStats = () => {
         const total = data.length;
-        const online = data.filter(item => 
-            item.status && item.status.toLowerCase().includes('online') || 
-            item.status && item.status.toLowerCase().includes('up') ||
-            item.status === 'ok'
-        ).length;
-        const offline = total - online;
-        return { total, online, offline };
+        const online = data.filter(item => {
+            const codeNum = parseInt(item.status_code);
+            // 2xx and 3xx are healthy
+            return codeNum >= 200 && codeNum < 400;
+        }).length;
+        const offline = data.filter(item => {
+            const codeNum = parseInt(item.status_code);
+            // 4xx and 5xx are unhealthy
+            return codeNum >= 400;
+        }).length;
+        const unknown = total - online - offline;
+        return { total, online, offline, unknown };
     };
 
     const stats = getStats();
@@ -195,12 +201,18 @@ const DashBoard = () => {
                         </div>
                         <div className={`${styles.statCard} ${styles.online}`}>
                             <div className={styles.statValue}>{stats.online}</div>
-                            <div className={styles.statLabel}>Online</div>
+                            <div className={styles.statLabel}>Healthy (2xx-3xx)</div>
                         </div>
                         <div className={`${styles.statCard} ${styles.offline}`}>
                             <div className={styles.statValue}>{stats.offline}</div>
-                            <div className={styles.statLabel}>Offline</div>
+                            <div className={styles.statLabel}>Unhealthy (4xx-5xx)</div>
                         </div>
+                        {stats.unknown > 0 && (
+                            <div className={`${styles.statCard} ${styles.pending}`}>
+                                <div className={styles.statValue}>{stats.unknown}</div>
+                                <div className={styles.statLabel}>Pending</div>
+                            </div>
+                        )}
                     </div>
                 )}
 
@@ -261,7 +273,7 @@ const DashBoard = () => {
                                             )}
                                         </td>
                                         <td>
-                                            <span className={`${styles.statusBadge} ${styles[getStatusBadgeClass(item.status)]}`}>
+                                            <span className={`${styles.statusBadge} ${styles[getStatusBadgeClass(item.status, item.status_code)]}`}>
                                                 {item.status || 'Unknown'}
                                             </span>
                                         </td>
@@ -271,7 +283,7 @@ const DashBoard = () => {
                                                     {item.status_code}
                                                 </span>
                                             ) : (
-                                                <span className={`${styles.statusCode} ${styles.unknown}`}>
+                                                <span className={`${styles.statusCode} ${styles.pending}`}>
                                                     N/A
                                                 </span>
                                             )}
