@@ -11,13 +11,15 @@ import Home from './components/Home';
 function App() {
   return (
     <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/registerTeam" element={<RegisterTeam />} />
-        <Route path="/registerLink" element={<RegisterLink />} />
-        <Route path="/dashBoard" element={<DashBoard />} />
-      </Routes>
+      <div className="app">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/registerTeam" element={<RegisterTeam />} />
+          <Route path="/registerLink" element={<RegisterLink />} />
+          <Route path="/dashBoard" element={<DashBoard />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
