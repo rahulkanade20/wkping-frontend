@@ -6,6 +6,9 @@ const DashBoard = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [lastFetch, setLastFetch] = useState(null);
+    const [autoRefresh, setAutoRefresh] = useState(false);
+    const [refreshInterval, setRefreshInterval] = useState(30); // seconds
+    const [showUpdateNotification, setShowUpdateNotification] = useState(false);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -19,7 +22,15 @@ const DashBoard = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const jsonData = await response.json();
-            setData(Array.isArray(jsonData) ? jsonData : []);
+            const newData = Array.isArray(jsonData) ? jsonData : [];
+            
+            // Show update notification if data changed
+            if (data.length > 0 && JSON.stringify(newData) !== JSON.stringify(data)) {
+                setShowUpdateNotification(true);
+                setTimeout(() => setShowUpdateNotification(false), 3000);
+            }
+            
+            setData(newData);
             setLastFetch(new Date());
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -71,31 +82,107 @@ const DashBoard = () => {
 
     const stats = getStats();
 
+    // Auto-refresh functionality
+    useEffect(() => {
+        let intervalId;
+        
+        if (autoRefresh && refreshInterval > 0) {
+            intervalId = setInterval(() => {
+                fetchData();
+            }, refreshInterval * 1000);
+        }
+        
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, [autoRefresh, refreshInterval]);
+
+    // Initial data load when component mounts
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const toggleAutoRefresh = () => {
+        setAutoRefresh(!autoRefresh);
+    };
+
+    const handleIntervalChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 5 && value <= 300) { // 5 seconds to 5 minutes
+            setRefreshInterval(value);
+        }
+    };
+
     return (
         <main className={styles.container}>
+            {showUpdateNotification && (
+                <div className={styles.updateNotification}>
+                    ✅ Data updated successfully!
+                </div>
+            )}
             <div className={styles.content}>
                 <div className={styles.header}>
                     <div className={styles.headerTop}>
                         <h1 className={styles.title}>Dashboard</h1>
-                        <button 
-                            onClick={fetchData} 
-                            className={styles.fetchButton}
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <>
-                                    <span className={styles.loadingSpinner}></span>
-                                    Fetching...
-                                </>
-                            ) : (
-                                'Fetch Data'
-                            )}
-                        </button>
+                        <div className={styles.controls}>
+                            <button 
+                                onClick={fetchData} 
+                                className={styles.fetchButton}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <span className={styles.loadingSpinner}></span>
+                                        Fetching...
+                                    </>
+                                ) : (
+                                    'Fetch Data'
+                                )}
+                            </button>
+                            
+                            <div className={styles.autoRefreshControls}>
+                                <label className={styles.toggleLabel}>
+                                    <input
+                                        type="checkbox"
+                                        checked={autoRefresh}
+                                        onChange={toggleAutoRefresh}
+                                        className={styles.toggleInput}
+                                    />
+                                    <span className={styles.toggleText}>
+                                        Auto-refresh {autoRefresh ? 'ON' : 'OFF'}
+                                    </span>
+                                </label>
+                                
+                                {autoRefresh && (
+                                    <div className={styles.intervalControl}>
+                                        <label className={styles.intervalLabel}>
+                                            Every
+                                            <input
+                                                type="number"
+                                                min="5"
+                                                max="300"
+                                                value={refreshInterval}
+                                                onChange={handleIntervalChange}
+                                                className={styles.intervalInput}
+                                            />
+                                            seconds
+                                        </label>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
                     <p className={styles.subtitle}>
                         Monitor the health and status of your registered websites
                         {lastFetch && (
                             <span> • Last updated: {lastFetch.toLocaleTimeString()}</span>
+                        )}
+                        {autoRefresh && !isLoading && (
+                            <span className={styles.autoRefreshIndicator}>
+                                • Auto-refreshing every {refreshInterval}s
+                            </span>
                         )}
                     </p>
                 </div>
