@@ -46,8 +46,8 @@ const DashBoard = () => {
             const codeNum = parseInt(statusCode);
             // 2xx and 3xx are considered healthy (success and redirects)
             if (codeNum >= 200 && codeNum < 400) return 'online';
-            // 4xx and 5xx are unhealthy (client and server errors)
-            if (codeNum >= 400) return 'offline';
+            // -1 (network failures), 4xx and 5xx are unhealthy
+            if (codeNum === -1 || codeNum >= 400) return 'offline';
         }
         return 'pending';
     };
@@ -56,7 +56,8 @@ const DashBoard = () => {
         if (!code) return 'pending';
         const codeNum = parseInt(code);
         if (codeNum >= 200 && codeNum < 300) return 'success';
-        if (codeNum >= 400) return 'error';
+        // -1 (network failures) and 4xx/5xx are errors
+        if (codeNum === -1 || codeNum >= 400) return 'error';
         return 'pending';
     };
 
@@ -79,8 +80,8 @@ const DashBoard = () => {
         }).length;
         const offline = data.filter(item => {
             const codeNum = parseInt(item.status_code);
-            // 4xx and 5xx are unhealthy
-            return codeNum >= 400;
+            // -1 (network failures), 4xx and 5xx are unhealthy
+            return codeNum === -1 || codeNum >= 400;
         }).length;
         const unknown = total - online - offline;
         return { total, online, offline, unknown };
