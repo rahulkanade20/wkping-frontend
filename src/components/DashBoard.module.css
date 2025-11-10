@@ -1,7 +1,7 @@
 /* Main Container - Full Screen */
 .container {
   min-height: calc(100vh - 60px);
-  background: linear-gradient(135deg, #fff5f5 0%, #fff7ed 50%, #fffbeb 100%);
+  background: linear-gradient(135deg, #f0f9ff 0%, #ecfeff 50%, #f0fdfa 100%);
   padding: 40px 20px;
 }
 
@@ -53,19 +53,19 @@
 .title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #dc2626;
+  color: #1e40af;
   margin: 0;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #78716c;
+  color: #475569;
   margin: 0;
   line-height: 1.6;
 }
 
 .autoRefreshIndicator {
-  color: #f97316;
+  color: #0891b2;
   font-weight: 600;
 }
 
@@ -82,7 +82,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #ff6b6b 0%, #f97316 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #0891b2 100%);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -94,7 +94,7 @@
 
 .fetchButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
 }
 
 .fetchButton:disabled {
@@ -143,7 +143,7 @@
 .toggleText {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #dc2626;
+  color: #1e40af;
 }
 
 .intervalControl {
@@ -156,13 +156,13 @@
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
-  color: #78716c;
+  color: #475569;
 }
 
 .intervalInput {
   width: 60px;
   padding: 4px 8px;
-  border: 2px solid #fbbf24;
+  border: 2px solid #06b6d4;
   border-radius: 4px;
   font-size: 0.9rem;
   text-align: center;
@@ -170,7 +170,7 @@
 
 .intervalInput:focus {
   outline: none;
-  border-color: #f97316;
+  border-color: #0891b2;
 }
 
 /* Stats Grid */
@@ -234,7 +234,7 @@
 
 .statLabel {
   font-size: 0.95rem;
-  color: #78716c;
+  color: #475569;
   font-weight: 600;
 }
 
@@ -243,7 +243,7 @@
   background: rgba(255, 255, 255, 0.6);
   border-radius: 8px;
   padding: 30px;
-  border-left: 4px solid #ff6b6b;
+  border-left: 4px solid #0891b2;
 }
 
 .tableHeader {
@@ -253,7 +253,7 @@
 .tableTitle {
   font-size: 1.75rem;
   font-weight: 600;
-  color: #f97316;
+  color: #0891b2;
   margin: 0;
 }
 
@@ -267,7 +267,7 @@
 }
 
 .table thead {
-  background: linear-gradient(135deg, #ff6b6b 0%, #f97316 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #0891b2 100%);
 }
 
 .table th {
@@ -279,12 +279,12 @@
 }
 
 .table tbody tr {
-  border-bottom: 1px solid #fef3c7;
+  border-bottom: 1px solid #cffafe;
   transition: background 0.2s;
 }
 
 .table tbody tr:hover {
-  background: #fffbeb;
+  background: #ecfeff;
 }
 
 .table tbody tr:last-child {
@@ -299,7 +299,7 @@
 
 /* URL Link */
 .urlLink {
-  color: #f97316;
+  color: #0891b2;
   text-decoration: none;
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
@@ -365,7 +365,7 @@
 
 /* Timestamp */
 .timestamp {
-  color: #78716c;
+  color: #475569;
   font-size: 0.9rem;
 }
 
@@ -383,13 +383,13 @@
 .emptyStateTitle {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #dc2626;
+  color: #1e40af;
   margin: 0 0 12px 0;
 }
 
 .emptyStateText {
   font-size: 1rem;
-  color: #78716c;
+  color: #475569;
   margin: 0;
   max-width: 500px;
   margin: 0 auto;
